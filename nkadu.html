@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SỔ ĐẦU BÀI // IPHONE 18 PRO BERRY</title>
+  
+  <link rel="manifest" href='data:application/manifest+json,{"name":"Sổ Đầu Bài NK","short_name":"Sổ Đầu Bài","start_url":"nkadu.html","display":"standalone","background_color":"%2305050a","theme_color":"%23b829bb","icons":[{"src":"https://img.icons8.com/fluency/96/cyberpunk.png","sizes":"96x96","type":"image/png"}]}'>
+
+  <style>
+    :root {
+      --bg-color: #05050a;
+      --berry-dark: #120914;
+      --berry-main: #b829bb;
+      --berry-glow: #e040fb;
+      --neon-cyan: #00f3ff;
+      --text-color: #f3e5f5;
+      --danger: #ff1744;
+      --card-bg: rgba(25, 14, 30, 0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Consolas, monospace;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 5px;
+    }
+
+    .iphone-frame {
+      width: 100%;
+      max-width: 410px;
+      height: 90vh;
+      background: linear-gradient(135deg, #1b0a24, #08030c);
+      border: 4px solid #3d1b4a;
+      border-radius: 40px;
+      box-shadow: 0 0 25px rgba(184, 41, 187, 0.3);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+      background: rgba(18, 9, 20, 0.9);
+      border-bottom: 1px solid #3d1b4a;
+    }
+
+    .menu-btn {
+      background: none;
+      border: none;
+      color: var(--berry-glow);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .app-title {
+      font-size: 0.9rem;
+      color: var(--berry-glow);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .sidebar {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 70%;
+      height: 100%;
+      background: #0d0612;
+      border-right: 2px solid var(--berry-main);
+      z-index: 100;
+      transition: 0.3s ease;
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .sidebar h3 {
+      color: var(--neon-cyan);
+      font-size: 1rem;
+      border-bottom: 1px solid #3d1b4a;
+      padding-bottom: 8px;
+    }
+
+    .sidebar-item {
+      background: #1a0b22;
+      color: var(--text-color);
+      border: 1px solid #4a235a;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    .sidebar-item:hover {
+      background: var(--berry-main);
+    }
+
+    .screen-content {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .screen-content.active {
+      display: flex;
+    }
+
+    .cyber-box {
+      background: var(--card-bg);
+      border: 1px solid var(--berry-main);
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 6px;
+    }
+
+    label {
+      font-size: 0.7rem;
+      color: var(--neon-cyan);
+      display: block;
+      margin-bottom: 2px;
+      text-transform: uppercase;
+    }
+
+    input, select {
+      width: 100%;
+      background: #07050a;
+      border: 1px solid #4a235a;
+      color: var(--text-color);
+      padding: 6px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    .student-list {
+      max-height: 120px;
+      overflow-y: auto;
+      border: 1px solid #3d1b4a;
+      border-radius: 5px;
+      padding: 4px;
+      background: #050308;
+    }
+
+    .student-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 6px;
+      border-bottom: 1px solid #1a0b22;
+      font-size: 0.75rem;
+    }
+
+    .student-item button {
+      background: var(--danger);
+      color: white;
+      border: none;
+      padding: 2px 5px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.65rem;
+    }
+
+    .btn-action {
+      width: 100%;
+      background: linear-gradient(90deg, var(--berry-main), #7b1fa2);
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 6px;
+      font-size: 0.75rem;
+    }
+
+    .history-item {
+      padding: 6px 0;
+      border-bottom: 1px dashed rgba(0, 243, 255, 0.2);
+      font-size: 0.75rem;
+    }
+
+    .id-tag {
+      color: var(--neon-cyan);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="iphone-frame">
+    <!-- MENU 3 GẠCH -->
+    <div class="sidebar" id="sidebar">
+      <h3>MENU QUẢN LÝ</h3>
+      <button class="sidebar-item" onclick="switchTab('sodaubai')">📜 Sổ Đầu Bài</button>
+      <button class="sidebar-item" onclick="switchTab('ql_lop')">🏫 Quản Lý Lớp & Học Sinh</button>
+      <button class="sidebar-item" onclick="switchTab('ql_gv')">👨‍🏫 Quản Lý Giáo Viên</button>
+      <button class="sidebar-item" onclick="switchTab('all_history')">📊 Lịch Sử Tất Cả</button>
+    </div>
+
+    <!-- HEADER -->
+    <div class="app-header">
+      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+      <div class="app-title" id="headerTitle">Sổ Đầu Bài</div>
+      <div style="font-size: 0.7rem; color: var(--neon-cyan);" id="currentIdDisplay">...</div>
+    </div>
+
+    <!-- MÀN HÌNH 1: SỔ ĐẦU BÀI -->
+    <div class="screen-content active" id="tab_sodaubai">
+      <div class="cyber-box">
+        <div class="form-group">
+          <label>ID Thiết Bị (Tự Động)</label>
+          <input type="text" id="userId" readonly style="color: var(--neon-cyan); font-weight: bold;">
+        </div>
+        <div style="display: flex; gap: 6px;">
+          <div class="form-group" style="flex:1;">
+            <label>Chọn Lớp</label>
+            <select id="sdb_lop" onchange="renderSdbStudents()"></select>
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Chọn Giáo Viên</label>
+            <select id="sdb_gv"></select>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px;">
+          <div class="form-group" style="flex:1;">
+            <label>Tuần / Thứ / Ngày</label>
+            <input type="text" id="sdb_thoigian" placeholder="Ví dụ: Tuần 1 - Thứ 2">
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Môn / Tiết</label>
+            <input type="text" id="sdb_montiet" placeholder="Ví dụ: Toán - Tiết 1">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Nội Dung Bài Dạy</label>
+          <input type="text" id="sdb_noidung" placeholder="Nhập tên bài học...">
+        </div>
+      </div>
+
+      <div class="cyber-box">
+        <label>Danh Sách Học Sinh (Trừ Điểm Vi Phạm)</label>
+        <div class="student-list" id="sdbStudentContainer"></div>
+        <button class="btn-action" onclick="submitSdb()">[+] GỬI SỔ ĐẦU BÀI LÊN SERVER</button>
+      </div>
+
+      <div class="cyber-box">
+        <label style="color: var(--berry-glow);">Lịch Sử Sổ Đầu Bài Realtime</label>
+        <div id="sdbHistoryContainer">Đang tải lịch sử...</div>
+      </div>
+    </div>
+
+    <!-- MÀN HÌNH 2: QUẢN LÝ LỚP & HỌC SINH -->
+    <div class="screen-content" id="tab_ql_lop">
+      <div class="cyber-box">
+        <label>Thêm Tên Lớp Mới</label>
+        <div style="display: flex; gap: 6px;">
+          <input type="text" id="newClassName" placeholder="Ví dụ: 7A1">
+          <button class="btn-action" style="width: 80px; margin-top:0;" onclick="addClass()">Thêm</button>
+        </div>
+      </div>
+      <div class="cyber-box">
+        <label>Thêm Học Sinh Vào Lớp</label>
+        <div class="form-group">
+          <label>Chọn Lớp</label>
+          <select id="targetClass"></select>
+        </div>
+        <div class="form-group">
+          <label>Tên Học Sinh</label>
+          <input type="text" id="newStudentName" placeholder="Tên em học sinh...">
+        </div>
+        <button class="btn-action" onclick="addStudent()">[+] THÊM HỌC SINH</button>
+      </div>
+    </div>
+
+    <!-- MÀN HÌNH 3: QUẢN LÝ GIÁO VIÊN -->
+    <div class="screen-content" id="tab_ql_gv">
+      <div class="cyber-box">
+        <label>Thêm Giáo Viên</label>
+        <div class="form-group">
+          <label>Họ và Tên Thầy / Cô</label>
+          <input type="text" id="newTeacherName" placeholder="Ví dụ: Thầy Ba, Cô Tư...">
+        </div>
+        <button class="btn-action" onclick="addTeacher()">[+] THÊM GIÁO VIÊN</button>
+      </div>
+      <div class="cyber-box">
+        <label>Danh Sách Giáo Viên Đã Lưu</label>
+        <div id="teacherListContainer" style="font-size: 0.8rem; margin-top: 5px;"></div>
+      </div>
+    </div>
+
+    <!-- MÀN HÌNH 4: LỊCH SỬ TẤT CẢ -->
+    <div class="screen-content" id="tab_all_history">
+      <div class="cyber-box">
+        <label style="color: var(--berry-glow);">Tất Cả Lịch Sử Hệ Thống</label>
+        <div id="allHistoryContainer">Đang tải...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIREBASE SCRIPT -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, push, onValue, set, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+      databaseURL: "https://truongbakhi-18741-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    // BẮT BUỘC TRUYỀN URL VÀO ĐÂY VÌ DATABASE NẰM Ở VÙNG ASIA-SOUTHEAST1
+    const db = getDatabase(app, "https://truongbakhi-18741-default-rtdb.asia-southeast1.firebasedatabase.app/");
+
+    let myId = localStorage.getItem('nk_device_id');
+    if (!myId) {
+      const randomStr = Math.random().toString(36).substring(2, 9);
+      myId = `nk_${randomStr}`;
+      localStorage.setItem('nk_device_id', myId);
+    }
+    document.getElementById('userId').value = myId;
+    document.getElementById('currentIdDisplay').innerText = myId;
+
+    let cloudData = {
+      classes: {},
+      teachers: [],
+      sodaubai: {},
+      actions_history: {}
+    };
+
+    const dbRef = ref(db, 'app_v6_clean');
+
+    onValue(dbRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        cloudData = data;
+      }
+      updateUI();
+    });
+
+    window.toggleSidebar = function() {
+      document.getElementById('sidebar').classList.toggle('active');
+    }
+
+    window.switchTab = function(tabId) {
+      document.querySelectorAll('.screen-content').forEach(el => el.classList.remove('active'));
+      document.getElementById('tab_' + tabId).classList.add('active');
+      document.getElementById('sidebar').classList.remove('active');
+
+      const titles = {
+        'sodaubai': 'Sổ Đầu Bài',
+        'ql_lop': 'Quản Lý Lớp',
+        'ql_gv': 'Quản Lý Giáo Viên',
+        'all_history': 'Lịch Sử Tất Cả'
+      };
+      document.getElementById('headerTitle').innerText = titles[tabId] || 'Hệ Thống';
+    }
+
+    let currentViolations = {};
+
+    function updateUI() {
+      const lopSelect = document.getElementById('sdb_lop');
+      const targetClassSelect = document.getElementById('targetClass');
+      
+      const currentSelectedLop = lopSelect.value;
+      const currentSelectedTarget = targetClassSelect.value;
+
+      lopSelect.innerHTML = '';
+      targetClassSelect.innerHTML = '';
+
+      const classKeys = cloudData.classes ? Object.keys(cloudData.classes) : [];
+      if(classKeys.length === 0) {
+        lopSelect.innerHTML = '<option value="">-- Chưa có lớp --</option>';
+        targetClassSelect.innerHTML = '<option value="">-- Chưa có lớp --</option>';
+      } else {
+        classKeys.forEach(cls => {
+          lopSelect.innerHTML += `<option value="${cls}">${cls}</option>`;
+          targetClassSelect.innerHTML += `<option value="${cls}">${cls}</option>`;
+        });
+        if(classKeys.includes(currentSelectedLop)) lopSelect.value = currentSelectedLop;
+        if(classKeys.includes(currentSelectedTarget)) targetClassSelect.value = currentSelectedTarget;
+      }
+
+      const gvSelect = document.getElementById('sdb_gv');
+      const currentSelectedGv = gvSelect.value;
+      gvSelect.innerHTML = '';
+      const teachers = cloudData.teachers || [];
+      if(teachers.length === 0) {
+        gvSelect.innerHTML = '<option value="">-- Chưa có GV --</option>';
+      } else {
+        teachers.forEach(gv => {
+          gvSelect.innerHTML += `<option value="${gv}">${gv}</option>`;
+        });
+        if(teachers.includes(currentSelectedGv)) gvSelect.value = currentSelectedGv;
+      }
+
+      renderSdbStudents();
+
+      const gvContainer = document.getElementById('teacherListContainer');
+      gvContainer.innerHTML = teachers.length > 0 ? teachers.map(t => `• ${t}`).join('<br>') : 'Chưa có giáo viên nào được thêm.';
+
+      renderHistory();
+    }
+
+    window.renderSdbStudents = function() {
+      const cls = document.getElementById('sdb_lop').value;
+      const container = document.getElementById('sdbStudentContainer');
+      container.innerHTML = '';
+      currentViolations = {};
+
+      const students = (cloudData.classes && cloudData.classes[cls]) ? cloudData.classes[cls] : [];
+      if(students.length === 0) {
+        container.innerHTML = '<span style="color:#aaa; font-size:0.75rem;">Chưa có học sinh trong lớp này.</span>';
+        return;
+      }
+
+      students.forEach(student => {
+        currentViolations[student] = 0;
+        const div = document.createElement('div');
+        div.className = 'student-item';
+        div.innerHTML = `
+          <span>${student} (-<b id="score_${student}">0</b>đ)</span>
+          <button onclick="deductPoint('${student}')">Trừ</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    window.deductPoint = function(student) {
+      currentViolations[student] += 1;
+      document.getElementById(`score_${student}`).innerText = currentViolations[student];
+    }
+
+    window.addClass = function() {
+      const clsName = document.getElementById('newClassName').value.trim();
+      if(!clsName) return alert('Nhập tên lớp vào!');
+      
+      if(!cloudData.classes) cloudData.classes = {};
+      if(cloudData.classes[clsName]) return alert('Lớp này đã tồn tại rồi!');
+      
+      cloudData.classes[clsName] = [];
+      
+      set(ref(db, 'app_v6_clean/classes'), cloudData.classes)
+        .then(() => {
+          alert('Đã thêm lớp ' + clsName + ' thành công!');
+          document.getElementById('newClassName').value = '';
+          updateUI();
+        })
+        .catch(err => alert('Lỗi: ' + err.message));
+    }
+
+    window.addStudent = function() {
+      const cls = document.getElementById('targetClass').value;
+      if(!cls) return alert('Chưa chọn lớp!');
+      const studentName = document.getElementById('newStudentName').value.trim();
+      if(!studentName) return alert('Nhập tên học sinh!');
+      
+      if(!cloudData.classes[cls]) cloudData.classes[cls] = [];
+      cloudData.classes[cls].push(studentName);
+      
+      set(ref(db, `app_v6_clean/classes/${cls}`), cloudData.classes[cls])
+        .then(() => {
+          alert('Đã thêm học sinh ' + studentName + ' vào lớp ' + cls);
+          document.getElementById('newStudentName').value = '';
+          updateUI();
+        })
+        .catch(err => alert('Lỗi: ' + err.message));
+    }
+
+    window.addTeacher = function() {
+      const tName = document.getElementById('newTeacherName').value.trim();
+      if(!tName) return alert('Nhập tên giáo viên!');
+      
+      if(!cloudData.teachers) cloudData.teachers = [];
+      if(cloudData.teachers.includes(tName)) return alert('Giáo viên này đã có rồi!');
+      
+      cloudData.teachers.push(tName);
+      
+      set(ref(db, 'app_v6_clean/teachers'), cloudData.teachers)
+        .then(() => {
+          alert('Đã thêm giáo viên thành công!');
+          document.getElementById('newTeacherName').value = '';
+          updateUI();
+        })
+        .catch(err => alert('Lỗi: ' + err.message));
+    }
+
+    window.submitSdb = function() {
+      const userId = document.getElementById('userId').value;
+      const lop = document.getElementById('sdb_lop').value;
+      const gv = document.getElementById('sdb_gv').value;
+      const thoigian = document.getElementById('sdb_thoigian').value;
+      const montiet = document.getElementById('sdb_montiet').value;
+      const noidung = document.getElementById('sdb_noidung').value;
+
+      if(!lop || lop === "-- Chưa có lớp --") return alert('Vui lòng chọn lớp hợp lệ để gửi!');
+
+      const payload = {
+        userId, lop, gv: gv || 'Chưa rõ', thoigian: thoigian || 'N/A', montiet: montiet || 'N/A', noidung: noidung || 'N/A',
+        violations: currentViolations,
+        timestamp: new Date().toLocaleTimeString() + ' ' + new Date().toLocaleDateString()
+      };
+
+      const newKey = 'sdb_' + Date.now();
+      
+      update(ref(db, 'app_v6_clean/sodaubai'), {
+        [newKey]: payload
+      }).then(() => {
+        return update(ref(db, 'app_v6_clean/actions_history'), {
+          [newKey]: { ...payload, type: 'SỔ ĐẦU BÀI' }
+        });
+      }).then(() => {
+        alert('Đã gửi Sổ Đầu Bài lên Server thành công!');
+      }).catch((err) => {
+        alert('Lỗi khi gửi: ' + err.message);
+      });
+    }
+
+    function renderHistory() {
+      const sdbContainer = document.getElementById('sdbHistoryContainer');
+      sdbContainer.innerHTML = '';
+      const sdbData = cloudData.sodaubai || {};
+      const sdbKeys = Object.keys(sdbData).reverse();
+
+      if(sdbKeys.length === 0) {
+        sdbContainer.innerHTML = 'Chưa có bản ghi nào.';
+      } else {
+        sdbKeys.slice(0, 5).forEach(key => {
+          const item = sdbData[key];
+          sdbContainer.innerHTML += `
+            <div class="history-item">
+              <span class="id-tag">[${item.userId}]</span> Lớp ${item.lop} - GV: ${item.gv}<br>
+              ${item.montiet} (${item.thoigian})<br>
+              <span style="color:#aaa; font-size:0.65rem;">${item.timestamp}</span>
+            </div>
+          `;
+        });
+      }
+
+      const allContainer = document.getElementById('allHistoryContainer');
+      allContainer.innerHTML = '';
+      const allData = cloudData.actions_history || {};
+      const allKeys = Object.keys(allData).reverse();
+
+      if(allKeys.length === 0) {
+        allContainer.innerHTML = 'Chưa có lịch sử hoạt động.';
+      } else {
+        allKeys.forEach(key => {
+          const item = allData[key];
+          allContainer.innerHTML += `
+            <div class="history-item">
+              <span class="id-tag">[${item.userId}]</span> - <b>${item.type}</b><br>
+              Lớp ${item.lop || 'N/A'} - GV: ${item.gv || 'N/A'}<br>
+              <span style="color:#aaa; font-size:0.65rem;">${item.timestamp}</span>
+            </div>
+          `;
+        });
+      }
+    }
+  </script>
+</body>
+</html>
